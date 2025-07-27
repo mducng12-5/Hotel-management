@@ -9,8 +9,8 @@ list<int> StaffManagement::receptionist_ID;
 
 void AddStaff::admin_add_new_staff()
 {
-    add_new_staff: 
-        uint8_t choice = 0;
+   int choice;
+        do{
         cout << "---ADD STAFF---\n";
         cout << "Enter staff name: ";
         string new_staff_username, new_staff_phone_number, new_staff_role;
@@ -20,7 +20,6 @@ void AddStaff::admin_add_new_staff()
         cout << "Enter work position: ";
         cin >> new_staff_role;
         receptionist_username.push_back(new_staff_username);
-        receptionist_phone_number.push_back(new_staff_phone_number);
         receptionist_phone_number.push_back(new_staff_phone_number);
         receptionist_role.push_back(new_staff_role);
 
@@ -44,25 +43,29 @@ void AddStaff::admin_add_new_staff()
         fstream database_staff("database/receptionist.csv", ios::app);
         if(database_staff.is_open())
         {
-            string& last_element = receptionist_username.back();
-            database_staff << last_element << ",";
+
+            database_staff << receptionist_username.back() << ",";
             database_staff << "default_password" << ",";
-            last_element = receptionist_phone_number.back();
-            database_staff << last_element << ",";
-            last_element = receptionist_ID.back();
-            database_staff << last_element << ",";
-            last_element = receptionist_role.back();
-            database_staff << last_element << endl;
+
+            database_staff << receptionist_phone_number.back() << ",";
+
+            database_staff << receptionist_ID.back() << ",";
+
+            database_staff << receptionist_role.back() << endl;
         }
+        database_staff.close();
 
 
         cout <<"-------------------------\n" << "Add staff successfully\n" << "1. Add another staff\n" << "0. Back\n" << "Please choose: ";
         cin >> choice;
-        if(choice == 1)
-            goto add_new_staff;
-        else if(choice == 0)
-        {
-            AdminMenu::admin_menu_list();
-        }
+    }while (choice == 1);
+
+    // Khi người dùng chọn 0 (hoặc bất kỳ số nào khác ngoài 1), vòng lặp kết thúc
+    if (choice == 0)
+    {
+        // Gọi hàm để quay lại menu admin
+        std::cout << "Returning to Admin Menu.\n"; 
+        AdminMenu::admin_menu_list();
+    }
 
 }
