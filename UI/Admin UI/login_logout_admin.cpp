@@ -1,12 +1,13 @@
 #include "login_logout_admin.hpp"
-
+#include "staff_management.hpp"
 void log_in_admin::LogInAdmin()
 {
     log_in_interface: /* log in interface flag*/
         string admin_username, admin_password;
-        cout << "Please enter username:" << endl;
+        cout << "Please enter username: ";
+        cin.ignore();
         getline(cin, admin_username);
-        cout << "Please enter password:" <<endl;
+        cout << "Please enter password: ";
         getline(cin, admin_password);
         ifstream file("database/admin.csv");
         if(!file.is_open())
@@ -19,7 +20,7 @@ void log_in_admin::LogInAdmin()
         string line;
         
         getline(file, line);
-        uint16_t found = 0;
+          uint16_t found = 0;
         while(getline(file, line))
         {
             stringstream readline(line);
@@ -33,6 +34,7 @@ void log_in_admin::LogInAdmin()
             {
                 cout << "Log in successfully\n";
                 found = 1;
+                AdminMenu::admin_menu_list();
                 break;
             } 
         }

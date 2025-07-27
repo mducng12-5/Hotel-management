@@ -7,6 +7,11 @@
 #include <algorithm>
 #include <list>
 #include <random>
+#include <iterator>
+#include <fstream>
+
+#include "UI\Admin UI\menu_admin.hpp"
+
 using namespace std;
 
 class StaffManagement
@@ -18,7 +23,7 @@ class StaffManagement
         static list<string> receptionist_role;
 };
 
-class AddStaff : protected StaffManagement
+class AddStaff : public StaffManagement
 {
     public:
         AddStaff(){}
